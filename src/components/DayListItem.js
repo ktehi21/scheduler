@@ -22,7 +22,7 @@ export default function DayListItem(props) {
 
   return (
     <li 
-      onClick={() => props.setDay(props.name)}
+      onClick={props.setDay}
       className={dayClass}
       selected={props.selected}
     >

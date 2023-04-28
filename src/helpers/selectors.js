@@ -12,8 +12,25 @@ export function getAppointmentsForDay(state, day) {
   return result
 }
 
+export function getInterviewersForDay(state, day) {
+  const dayObj = state.days.find(obj => {
+    return obj.name === day;
+  });
 
-// state : interviews.data
+  if (!dayObj || state.days.length === 0) {
+    return [];
+  }
+
+  const interviewersArr = dayObj.interviewers;
+
+  const interviewers = interviewersArr.map(id => {
+    return state.interviewers[id];
+  });
+
+  return interviewers;
+}
+
+// state : interviewers.data
 //interview = state.appointments.interview;
 export function getInterview(state, interview) {
   if (!interview) {
@@ -22,12 +39,26 @@ export function getInterview(state, interview) {
 
   const id = interview.interviewer;
   const interviewer = state.interviewers[id];
+  // console.log("SELECTORS.js: id ,interviewer", id, interview);
 
   return { ...interview, interviewer };
 }
 
 
 /*
+{
+  "id":1,
+  "time":"12pm",
+  "interview": {
+    "student": "Lydia Miller-Jones",
+    "interviewer": {
+      "id": 1,
+      "name": "Sylvia Palmer",
+      "avatar": "https://i.imgur.com/LpaY82x.png"
+    }
+  }
+}
+
 state.appointments
 {
   "id":1,

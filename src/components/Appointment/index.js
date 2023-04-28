@@ -14,7 +14,8 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const EDIT = "EDIT";
-const ERROR = "ERROR";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 const CONFIRM = "CONFIRM";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
@@ -31,36 +32,51 @@ export default function Appointment(props) {
   const onEdit = function () {
     transition(EDIT);
   };
+  
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    transition(SAVING, true);
+
+    props.bookInterview(props.id, interview)
+      .then(() => { transition(SHOW) })
+      .catch(error => {
+        transition(ERROR_SAVE)
+        console.log(error.message)
+      });
+  }
+
+  const save_error = function () {
+    transition(EDIT);
+  };  
 
   const onDelete = function () {
     transition(CONFIRM);
   };
 
   const onConfirm = function () {
-    transition(DELETING);
+    transition(DELETING, true);
 
     props.cancelInterview(props.id)
-    .then(() => {transition(EMPTY, true)})
-    .catch(error => console.log(error.message));
+      .then(() => { transition(EMPTY) })
+      .catch(error => {
+        transition(ERROR_DELETE, true)
+        console.log(error.message)
+      });
   };
 
-  function save(name, interviewer) {
-    const interview = {
-      student: name,
-      interviewer
-    };
-    transition(SAVING); 
-
-    props.bookInterview(props.id, interview)
-    .then(() => {transition(SHOW)})
-    .catch(error => console.log(error.message));
-  }
+  const delete_error = function () {
+    transition(SHOW);
+  };
 
   let interview = props.interview;
   if (interview == null) {
     interview = []
   }
   // console.log("Appointment.js props.interviewers: ", props.interviewers);
+  console.log("mode: ", mode);
 
   return (
     <section
@@ -95,7 +111,18 @@ export default function Appointment(props) {
           onSave={save}
         />
       }
-      {mode === ERROR && <Error />}
+      {mode === ERROR_SAVE &&
+        <Error
+          onClose={save_error}
+          message="Oops! something happen. Try it later"
+        />
+      }
+      {mode === ERROR_DELETE &&
+        <Error
+          onClose={delete_error}
+          message="Oops! something happen. Try it later"
+        />
+      }
       {mode === CONFIRM &&
         <Confirm
           message="Are you sure about delete interview?"

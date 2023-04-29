@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; // npm install axios@0.20.0
 
-export default function useApplication (props) {
+export default function useApplication(props) {
 
   const [state, setState] = useState({
     day: "Monday",
@@ -10,7 +10,7 @@ export default function useApplication (props) {
     interviewers: []
   });
 
- useEffect(() => {
+  useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
@@ -37,15 +37,34 @@ export default function useApplication (props) {
       [id]: appointment
     };
 
+    const bookSpots = function () {
+      const daysObj = state.days.find(day => day.name === state.day);
+      const selectedAppointments = daysObj.appointments;
+
+      let spots = 0;
+      for (const id of selectedAppointments) {
+        if (!appointments[id].interview) {
+          spots++;
+        }
+
+      }
+      const day = { ...daysObj, spots };
+      return day
+    }
+
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(function (resolve) {
-        // const remainSpots = updateSpots(state, id)
-        // reaminSpots을 어떤 값으로 리턴하느냐에 따라 다른 방법으로 사용
-
         setState({
           ...state,
-          appointments
+          appointments,
+          days: state.days.map(day => {
+            if (day.name === state.day) {
+              return bookSpots();
+            }
+            return day;
+          }),
         });
+
       })
   }
 
@@ -58,7 +77,21 @@ export default function useApplication (props) {
       ...state.appointments,
       [id]: appointment
     };
-    console.log("APPLICATION: ", appointments)
+
+    const cancelSpots = function () {
+      const daysObj = state.days.find(day => day.name === state.day);
+      const selectedAppointments = daysObj.appointments;
+
+      let spots = 0;
+      for (const id of selectedAppointments) {
+        if (!appointments[id].interview) {
+          spots++;
+        }
+
+      }
+      const day = { ...daysObj, spots };
+      return day
+    }
 
     return axios.delete(`/api/appointments/${id}`, {
       interview
@@ -66,33 +99,38 @@ export default function useApplication (props) {
       .then(function (resolve) {
         setState({
           ...state,
-          // days: updateDays, in the end I can update state like this
-          appointments
-        });
+          appointments,
+          days: state.days.map(day => {
+            if (day.name === state.day) {
+              return cancelSpots();
+            }
+            return day;
+          })
+        })
       })
   }
 
   return { state, setDay, bookInterview, cancelInterview }
 
-//   const dayObj = state.days.find(d => d.name === state.day);
-//   const daysObj = state.days.find(day => day.name === state.day);
-//   // const daysAppointment = state.appointments;
-//   // const selectedAppointments = daysObj.appointments;
-// // console.log(daysObj?.appointments); // ?. prevent crashing just retrun falsy value
+  //   const dayObj = state.days.find(d => d.name === state.day);
+  //   const daysObj = state.days.find(day => day.name === state.day);
+  //   // const daysAppointment = state.appointments;
+  //   // const selectedAppointments = daysObj.appointments;
+  // // console.log(daysObj?.appointments); // ?. prevent crashing just retrun falsy value
 
-//   // const oldAppointment = state.appointments[id];
-//   // const newAppointment = appointments[id];
+  //   // const oldAppointment = state.appointments[id];
+  //   // const newAppointment = appointments[id];
 
-//   let spots = 0;
-//   for (const id of dayObj.appointments) {
-//     if(!appointments[id].interview) {
-//       spots++;
-//     }   
-//   }
+  //   let spots = 0;
+  //   for (const id of dayObj.appointments) {
+  //     if(!appointments[id].interview) {
+  //       spots++;
+  //     }   
+  //   }
 
-//   const day = {...dayObj, spots};
-//   return state.days.map(d => d.name === state.day ? day : d);
-//return should be number
+  //   const day = {...dayObj, spots};
+  //   return state.days.map(d => d.name === state.day ? day : d);
+  //return should be number
 }
 
 // 콘솔로그 써보고 데이터 확인해보고 
@@ -112,11 +150,11 @@ export default function useApplication (props) {
   // const [spot, setSpot] = useState(initial);
 
   // function booked(initial) {
-  //   setSpot(initial - 1);    
+  //   setSpot(initial - 1);
   // }
 
   // function canceled(initial) {
-  //   setSpot(initial + 1);    
+  //   setSpot(initial + 1);
   // }
 
   // return { spot, booked, canceled };

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
+
+Form.propTypes = {
+  student: PropTypes.string.isRequired
+};
 
 export default function Form(props) {
 

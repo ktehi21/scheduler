@@ -14,12 +14,6 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
   
-  // return the entire days array
-  // search for interview null = available
-  // check the interview
-  // increament spots ++
-
-  // const appointments = getAppointmentsForDay(state, state.day);
   const interviewersListOfDay = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day).map((appointment) => {
     return (

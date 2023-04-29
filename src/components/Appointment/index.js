@@ -76,7 +76,7 @@ export default function Appointment(props) {
     interview = []
   }
   // console.log("Appointment.js props.interviewers: ", props.interviewers);
-  console.log("mode: ", mode);
+  // console.log("mode: ", mode);
 
   return (
     <section

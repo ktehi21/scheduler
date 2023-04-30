@@ -77,6 +77,7 @@ export default function Appointment(props) {
   }
   // console.log("Appointment.js props.interviewers: ", props.interviewers);
   // console.log("mode: ", mode);
+  // console.log("SELECTORS id ,interviewer", props.interview);
 
   return (
     <section

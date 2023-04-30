@@ -22,7 +22,6 @@ export function getInterviewersForDay(state, day) {
   }
 
   const interviewersArr = dayObj.interviewers;
-
   const interviewers = interviewersArr.map(id => {
     return state.interviewers[id];
   });
@@ -39,9 +38,19 @@ export function getInterview(state, interview) {
 
   const id = interview.interviewer;
   const interviewer = state.interviewers[id];
-  // console.log("SELECTORS.js: id ,interviewer", id, interview);
 
-  return { ...interview, interviewer };
+  if (!interviewer) {
+    return null;
+  }
+
+  return {
+    ...interview,
+    interviewer: {
+      id: interviewer.id,
+      name: interviewer.name,
+      avatar: interviewer.avatar
+    }
+  };
 }
 
 

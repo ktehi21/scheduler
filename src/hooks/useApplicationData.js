@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios"; // npm install axios@0.20.0
+import axios from 'axios'; // npm install axios@0.20.0
 
 export default function useApplication(props) {
 
@@ -46,7 +46,6 @@ export default function useApplication(props) {
         if (!appointments[id].interview) {
           spots++;
         }
-
       }
       const day = { ...daysObj, spots };
       return day
@@ -56,13 +55,8 @@ export default function useApplication(props) {
       .then(function (resolve) {
         setState({
           ...state,
-          appointments,
-          days: state.days.map(day => {
-            if (day.name === state.day) {
-              return bookSpots();
-            }
-            return day;
-          }),
+          appointments: appointments,
+          days: bookSpots
         });
 
       })

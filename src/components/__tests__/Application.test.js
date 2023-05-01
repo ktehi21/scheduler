@@ -27,7 +27,7 @@ it("defaults to Monday and changes the schedule when a new day is selected", () 
   });
 });
 
-it.skip("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
   axios.put = jest.fn(() => Promise.resolve());
 
   const { container, debug } = render(<Application />);
@@ -95,9 +95,8 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
   expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
 });
 
-it("loads data, edits an interview and keeps the spots remaining for Monday the same", async() => {
+it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
   axios.put = jest.fn(() => Promise.resolve());
-  axios.put.mockRejectedValueOnce();
   const { container } = render(<Application />);
 
   await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -106,7 +105,7 @@ it("loads data, edits an interview and keeps the spots remaining for Monday the 
     appointment => queryByText(appointment, "Archie Cohen")
   );
   // console.log(prettyDOM(appointment));
-  
+
   fireEvent.click(getByAltText(appointment, "Edit"));
 
   fireEvent.change(getByPlaceholderText(appointment, /Enter student name/i), {
@@ -127,17 +126,17 @@ it("loads data, edits an interview and keeps the spots remaining for Monday the 
   );
 
   expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
-  
+
 });
 
 /* test number five */
 it("shows the save error when failing to save an appointment", () => {
-  
+
   // console.log(axios.put.mockRejectedValueOnce());
   axios.put.mockRejectedValueOnce();
 });
 it("shows the delete error when failing to delete an existing appointment", () => {
-  
+
   // console.log(axios.put.mockRejectedValueOnce());
   axios.delete.mockRejectedValueOnce();
 });

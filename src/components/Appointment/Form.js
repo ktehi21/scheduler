@@ -64,7 +64,6 @@ export default function Form(props) {
             placeholder="Enter Student Name"
             onChange={e => setStudent(e.target.value)}
             value={student}
-            required
             data-testid="student-name-input"
           />
         </form>
@@ -73,7 +72,6 @@ export default function Form(props) {
           interviewers={props.interviewers}
           value={interviewer}
           onChange={setInterviewer}
-          required
         />
       </section>
       <section className="appointment__card-right">

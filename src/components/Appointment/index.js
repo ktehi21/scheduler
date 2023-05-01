@@ -44,7 +44,7 @@ export default function Appointment(props) {
       .then(() => { transition(SHOW) })
       .catch(error => {
         transition(ERROR_SAVE)
-        console.log(error.message)
+        // console.log(error.message)
       });
   }
 
@@ -63,7 +63,7 @@ export default function Appointment(props) {
       .then(() => { transition(EMPTY) })
       .catch(error => {
         transition(ERROR_DELETE, true)
-        console.log(error.message)
+        // console.log(error.message)
       });
   };
 
@@ -82,6 +82,7 @@ export default function Appointment(props) {
   return (
     <section
       className="appointment"
+      data-testid="appointment"
     >
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => onAdd()} />}

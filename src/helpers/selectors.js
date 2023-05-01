@@ -23,13 +23,14 @@ export function getInterviewersForDay(state, day) {
 
   const interviewersArr = dayObj.interviewers;
   const interviewers = interviewersArr.map(id => {
+
     return state.interviewers[id];
   });
 
   return interviewers;
 }
 
-// state : interviewers.data
+// state 
 //interview = state.appointments.interview;
 export function getInterview(state, interview) {
   if (!interview) {
@@ -39,17 +40,8 @@ export function getInterview(state, interview) {
   const id = interview.interviewer;
   const interviewer = state.interviewers[id];
 
-  if (!interviewer) {
-    return null;
-  }
-
   return {
-    ...interview,
-    interviewer: {
-      id: interviewer.id,
-      name: interviewer.name,
-      avatar: interviewer.avatar
-    }
+    ...interview, interviewer
   };
 }
 

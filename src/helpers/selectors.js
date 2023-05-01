@@ -13,6 +13,7 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterviewersForDay(state, day) {
+  console.log("selector", state);
   const dayObj = state.days.find(obj => {
     return obj.name === day;
   });

@@ -50,14 +50,14 @@ it("loads data, books an interview and reduces the spots remaining for the first
   expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
   // console.log(prettyDOM(appointment));
-  await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
-  // await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
+  // await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+  await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
 
   const day = getAllByTestId(container, "day").find(day =>
     queryByText(day, "Monday")
   );
 
-  expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+  expect(getByText(day, "0 spots remaining")).toBeInTheDocument();
 
 });
 

@@ -38,12 +38,16 @@ npm run storybook
  - ws: ^7.0.0
 
 ## Screenshots
+- Main page
 !["Main page"](https://raw.githubusercontent.com/ktehi21/scheduler/master/docs/scheduler_main_page.png)
 
+- Add new interview schedule
 !["Add new interview schedule"](https://raw.githubusercontent.com/ktehi21/scheduler/master/docs/scheduler_booking_form.png)
 
+- Error message when inproper student name or no select interviewer
 !["Error message when inproper student name or no select interviewer"](https://raw.githubusercontent.com/ktehi21/scheduler/master/docs/scheduler_error_message.png)
 
+- After book or delete interview spots change
 !["After book or delete interview spots change"](https://raw.githubusercontent.com/ktehi21/scheduler/master/docs/scheduler_spots1.png)
 ![""](https://raw.githubusercontent.com/ktehi21/scheduler/master/docs/scheduler_spots2.png)
 ![""](https://raw.githubusercontent.com/ktehi21/scheduler/master/docs/scheduler_spots3.png)

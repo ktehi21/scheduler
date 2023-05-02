@@ -22,6 +22,10 @@ npm test
 npm run storybook
 ```
 
+## Running API data
+[using this git => ](https://github.com/ktehi21/scheduler-api)
+
+
 ## Dependencies List
  - axios: ^0.20.0
  - body-parser: ^1.18.3

@@ -23,7 +23,7 @@ npm run storybook
 ```
 
 ## Running API data
-[using this git => ](https://github.com/ktehi21/scheduler-api)
+[please using this git](https://github.com/ktehi21/scheduler-api)
 
 
 ## Dependencies List

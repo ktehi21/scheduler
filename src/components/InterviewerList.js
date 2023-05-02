@@ -26,8 +26,4 @@ function InterviewerList(props) {
   );
 } 
 
-// InterviewerList.propTypes = {
-//   interviewer: PropTypes.object.isRequired
-// };
-
 export default InterviewerList;

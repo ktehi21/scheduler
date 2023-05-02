@@ -21,7 +21,6 @@ export default function InterviewerListItem(props) {
         alt={props.name}
       />
       
-      {/* {interviewerClass.includes('interviewers__item--selected') ? props.name : ""} */}
       {props.selected && props.name}
     </li>
   );

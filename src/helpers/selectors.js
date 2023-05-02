@@ -1,8 +1,7 @@
-
+// get the appointments for each day
+// get the day then return correct appointments only
 export function getAppointmentsForDay(state, day) {
-  // state.days.name === day // return it by {}
-  // state.days.appointments.map => state.appintments.key 
-  // return [1,2,3] ===> state.days.name
+  
   const filteredDays = state.days.find(ii => ii.name === day);
   if (!filteredDays || state.days.length === 0) {
     return [];
@@ -12,8 +11,9 @@ export function getAppointmentsForDay(state, day) {
   return result
 }
 
+// get the interviewers for day
+// each day has available interviewers 
 export function getInterviewersForDay(state, day) {
-  console.log("selector", state);
   const dayObj = state.days.find(obj => {
     return obj.name === day;
   });
@@ -31,8 +31,9 @@ export function getInterviewersForDay(state, day) {
   return interviewers;
 }
 
-// state 
-//interview = state.appointments.interview;
+// if each appointments has interview modify the data 
+// no interview = null, interview: {student, interviewer:id} has only id (number)
+// match the interviewer's id then attach as interview.interviewer value
 export function getInterview(state, interview) {
   if (!interview) {
     return null;
@@ -45,36 +46,3 @@ export function getInterview(state, interview) {
     ...interview, interviewer
   };
 }
-
-
-/*
-{
-  "id":1,
-  "time":"12pm",
-  "interview": {
-    "student": "Lydia Miller-Jones",
-    "interviewer": {
-      "id": 1,
-      "name": "Sylvia Palmer",
-      "avatar": "https://i.imgur.com/LpaY82x.png"
-    }
-  }
-}
-
-state.appointments
-{
-  "id":1,
-  "time":"12pm",
-  "interview": {
-    "student": "Lydia Miller-Jones",
-    "interviewer": 1 <-------- 이 부분 바꾸기
-  }
-}
-
-state.interviewers
-{
-  "id": 1,
-  "name": "Sylvia Palmer",
-  "avatar": "https://i.imgur.com/LpaY82x.png"
-}
-*/

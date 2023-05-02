@@ -44,12 +44,12 @@ export default function Appointment(props) {
       .then(() => { transition(SHOW) })
       .catch(error => {
         transition(ERROR_SAVE)
-        // console.log(error.message)
       });
   }
 
   const save_error = function () {
-    transition(EDIT);
+    console.log("edit save error");
+    transition(EDIT, true);
   };  
 
   const onDelete = function () {
@@ -63,21 +63,18 @@ export default function Appointment(props) {
       .then(() => { transition(EMPTY) })
       .catch(error => {
         transition(ERROR_DELETE, true)
-        // console.log(error.message)
       });
   };
 
   const delete_error = function () {
-    transition(SHOW);
+    console.log('delete error');
+    transition(SHOW, true);
   };
 
   let interview = props.interview;
   if (interview == null) {
     interview = []
   }
-  // console.log("Appointment.js props.interviewers: ", props.interviewers);
-  // console.log("mode: ", mode);
-  // console.log("SELECTORS id ,interviewer", props.interview);
 
   return (
     <section
@@ -106,8 +103,8 @@ export default function Appointment(props) {
         <Form
           interviewers={props.interviewers}
           interview={interview}
-          student={props.interview.student}
-          interviewer={props.interview.interviewer.id}
+          student={props.interview?.student}
+          interviewer={props.interview?.interviewer?.id}
           selected={props.selected}
           onCancel={back}
           onSave={save}
